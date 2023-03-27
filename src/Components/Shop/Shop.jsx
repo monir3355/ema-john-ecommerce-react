@@ -3,6 +3,11 @@ import Product from '../Product/Product';
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
+  const [addToCart, setAddToCart] = useState([])
+  const handleAddToCart =(product)=>{
+    const newProducts = [...addToCart, product]
+    setAddToCart(newProducts);
+  }
   useEffect( ()=>{
     const productsLoad = async()=>{
       const res = await fetch('products.json');
@@ -18,11 +23,13 @@ const Shop = () => {
         products.slice(0, 6).map(product=> <Product
         key={product.id}
         product={product}
+        handleAddToCart={handleAddToCart}
         ></Product>)
       }
       </div>
       <div className='py-10 bg-[#FFE0B3] max-h-screen'>
         <h2 className='text-xl font-semibold underline text-center'>Order Summary</h2>
+        <p>Total Products : {addToCart.length}</p>
       </div>
     </div>
   );
