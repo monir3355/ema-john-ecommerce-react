@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Cart from '../Cart/Cart';
+import { addToDb, getShoppingCart } from '../FakeDB/FakeDB';
 import Product from '../Product/Product';
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [addToCart, setAddToCart] = useState([])
+  
   const handleAddToCart =(product)=>{
     const newProducts = [...addToCart, product]
     setAddToCart(newProducts);
+    addToDb(product.id)
   }
   useEffect( ()=>{
     const productsLoad = async()=>{
@@ -16,6 +19,10 @@ const Shop = () => {
       setProducts(data);
     }
     productsLoad();
+  }, [])
+  useEffect( ()=>{
+    const storedCart = getShoppingCart();
+    console.log(storedCart);
   }, [])
   return (
     <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 container mx-auto gap-8'>
