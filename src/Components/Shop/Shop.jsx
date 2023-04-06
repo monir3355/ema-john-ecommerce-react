@@ -22,8 +22,18 @@ const Shop = () => {
   }, [])
   useEffect( ()=>{
     const storedCart = getShoppingCart();
-    console.log(storedCart);
-  }, [])
+    const savedCart = [];
+    // console.log(storedCart);
+    for(let id in storedCart){
+      const addedProduct = products.find(product=>product.id == id)
+      if(addedProduct){
+        const quantity = storedCart[id];
+        addedProduct.quantity = quantity;
+        savedCart.push(addedProduct);
+      }
+      setAddToCart(savedCart);
+    }
+  }, [products])
   return (
     <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 container mx-auto gap-8'>
       <div className='md:col-span-2 lg:col-span-4 grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 gap-8 py-10'>
