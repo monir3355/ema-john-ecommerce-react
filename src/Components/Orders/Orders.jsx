@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Cart from "../Cart/Cart";
 import ReviewItem from "../ReviewItem/ReviewItem";
-import { removeFromDb } from "../FakeDB/FakeDB";
+import { deleteShoppingCart, removeFromDb } from "../FakeDB/FakeDB";
 
 const Orders = () => {
   const addToCart = useLoaderData();
@@ -11,6 +11,10 @@ const Orders = () => {
     const remaining = carts.filter((pd) => pd.id != id);
     setCarts(remaining);
     removeFromDb(id);
+  };
+  const handleClearCart = () => {
+    setCarts([]);
+    deleteShoppingCart();
   };
   // console.log(products);
   return (
@@ -25,7 +29,13 @@ const Orders = () => {
         ))}
       </div>
       <div className="py-10 bg-[#FFE0B3] max-h-screen sticky top-0">
-        <Cart addToCart={addToCart}></Cart>
+        <Cart addToCart={addToCart} handleClearCart={handleClearCart}>
+          <Link to="/checkout">
+            <button className="btn bg-red-500 hover:bg-red-600 border-none w-full">
+              Proceed Checkout
+            </button>
+          </Link>
+        </Cart>
       </div>
     </div>
   );

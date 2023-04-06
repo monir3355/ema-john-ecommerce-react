@@ -1,6 +1,7 @@
 import React from "react";
+import { BeakerIcon, TrashIcon } from "@heroicons/react/24/solid";
 
-const Cart = ({ addToCart }) => {
+const Cart = ({ addToCart, handleClearCart, children }) => {
   // console.log(addToCart);
 
   // const total = addToCart.reduce((prev, current)=> prev + current.price, 0)
@@ -30,6 +31,8 @@ const Cart = ({ addToCart }) => {
         <p>Total Shipping Charge : ${shipping.toFixed(2)}</p>
         <p>Tax : ${parseFloat(tax.toFixed(2))}</p>
         <p className="font-semibold">Grand Total : ${grandTotal.toFixed(2)}</p>
+        <button onClick={handleClearCart} className="btn bg-red-500 hover:bg-red-600 border-none w-full my-4">Clear Cart <TrashIcon className="h-6 w-6 ml-auto"/> </button>
+        {children}
       </div>
     </>
   );
