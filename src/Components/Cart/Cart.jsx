@@ -1,7 +1,7 @@
 import React from "react";
 
 const Cart = ({ addToCart }) => {
-  console.log(addToCart);
+  // console.log(addToCart);
 
   // const total = addToCart.reduce((prev, current)=> prev + current.price, 0)
   let total = 0;
