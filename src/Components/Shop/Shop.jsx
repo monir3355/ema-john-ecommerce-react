@@ -14,7 +14,16 @@ const Shop = () => {
   };
 
   const handleAddToCart = (product) => {
-    const newProducts = [...addToCart, product];
+    let newProducts = [];
+    const findProduct = addToCart.find((pd) => pd.id === product.id);
+    if (!findProduct) {
+      product.quantity = 1;
+      newProducts = [...addToCart, product];
+    } else {
+      findProduct.quantity += 1;
+      const remaining = addToCart.filter((pd) => pd.id != product.id);
+      newProducts = [...remaining, findProduct];
+    }
     setAddToCart(newProducts);
     addToDb(product.id);
   };
@@ -54,7 +63,9 @@ const Shop = () => {
       <div className="py-10 bg-[#FFE0B3] max-h-screen sticky top-0">
         <Cart addToCart={addToCart} handleClearCart={handleClearCart}>
           <Link to="/orders">
-          <button className="btn bg-red-500 hover:bg-red-600 border-none w-full">Review Order</button>
+            <button className="btn bg-red-500 hover:bg-red-600 border-none w-full">
+              Review Order
+            </button>
           </Link>
         </Cart>
       </div>
