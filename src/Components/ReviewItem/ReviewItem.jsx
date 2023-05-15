@@ -3,7 +3,7 @@ import { BeakerIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 const ReviewItem = ({ product, handleDeleteProduct }) => {
   // console.log(product);
-  const { name, price, quantity, shipping, img, id } = product;
+  const { name, price, quantity, shipping, img, _id } = product;
   return (
     <div className="border px-6 rounded-md flex justify-between items-center">
       <div className="card card-side">
@@ -16,7 +16,10 @@ const ReviewItem = ({ product, handleDeleteProduct }) => {
           <p>Quantity : {quantity}</p>
         </div>
       </div>
-      <div onClick={()=>handleDeleteProduct(id)} className="bg-red-400 p-3 rounded-full cursor-pointer">
+      <div
+        onClick={() => handleDeleteProduct(_id)}
+        className="bg-red-400 p-3 rounded-full cursor-pointer"
+      >
         <TrashIcon className="text-white h-8 w-8" />
       </div>
     </div>
